@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import ProductCart from "./components/ProductCart";
+import ProductCart from "./components/ProductCart/ProductCart";
 
 export default function Home() {
   return (
