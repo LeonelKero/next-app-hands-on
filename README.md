@@ -7,9 +7,11 @@ After React, it's time to get our hands durty with Next Js technology.
 * Routing
 * Client and Server Component (directives)
 * Fetch data
+* Caching 
 
 ## Technologies
 
 - Typescript
 - Tailwind CSS
+- CSS
 
