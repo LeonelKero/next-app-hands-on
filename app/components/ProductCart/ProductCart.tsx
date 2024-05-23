@@ -1,12 +1,12 @@
-import AddToCart from './AddToCart'
-import styles from "./ProductCart.module.css"
+import AddToCart from "../AddToCart/AddToCart";
+import styles from "./ProductCart.module.css";
 
 const ProductCart = () => {
   return (
     <div className={styles.cart}>
-        <AddToCart />
+      <AddToCart />
     </div>
-  )
-}
+  );
+};
 
-export default ProductCart
+export default ProductCart;
