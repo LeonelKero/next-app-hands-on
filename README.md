@@ -14,4 +14,4 @@ After React, it's time to get our hands durty with Next Js technology.
 - Typescript
 - Tailwind CSS
 - CSS
-
+- DaisyUI

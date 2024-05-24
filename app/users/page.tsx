@@ -19,14 +19,24 @@ const UsersPage = async () => {
     <>
       <div>UsersPage</div>
       <Link href={"/users/new"}>Create</Link>
-      <ul>
-        {users.map((user) => (
-          <li key={user.id}>
-            I am {user.name}, but you can call me {user.username} and my email
-            is {user.email}
-          </li>
-        ))}
-      </ul>
+      <table className="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>NAME</th>
+            <th>EMAIL</th>
+          </tr>
+        </thead>
+        <tbody>
+          {users.map((user) => (
+            <tr key={user.id}>
+              <td>{user.id}</td>
+              <td>{user.name}</td>
+              <td>{user.email}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </>
   );
 };
