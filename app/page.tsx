@@ -4,9 +4,7 @@ import ProductCart from "./components/ProductCart/ProductCart";
 export default function Home() {
   return (
     <main>
-      <h1>Home</h1>
-      <Link href={"/users"}>Users</Link>
-      <ProductCart />
+      <button className="btn btn-secondary">New User</button>
     </main>
   );
 }
