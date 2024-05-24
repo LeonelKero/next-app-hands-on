@@ -10,6 +10,7 @@ After React, it's time to get our hands durty with Next Js technology.
 - Caching with fetch
 - Styling with daisyui
 - Get parameters (path variable, search params)
+- Layout
 
 ## Technologies
 
