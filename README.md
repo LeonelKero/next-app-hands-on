@@ -13,10 +13,13 @@ After React, it's time to get our hands durty with Next Js technology.
 
 ## Technologies
 
+- React 18
+- Next JS 14
 - Typescript
 - Tailwind CSS
 - CSS
 - DaisyUI
+- Fast sort
 
 ## Tips/Caution
 
