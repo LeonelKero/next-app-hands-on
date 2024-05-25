@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Suspense } from "react";
 import UsersTable from "./UsersTable";
 
 interface Props {
@@ -9,7 +10,9 @@ const UsersPage = async ({ searchParams: { sort } }: Props) => {
   return (
     <>
       <Link href={"/users/new"}>Create</Link>
-      <UsersTable sortCriteria={sort} />
+      <Suspense fallback={<p>Loading...</p>}>
+        <UsersTable sortCriteria={sort} />
+      </Suspense>
     </>
   );
 };
