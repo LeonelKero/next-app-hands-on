@@ -18,6 +18,7 @@ After React, it's time to get our hands durty with Next Js technology.
 - `page.tsx` reacts as index for each route
 - `layout.tsx` for laying out each page can be seen as template
 - `loading.tsx` layout loading animation when pages load
+- `not-found.tsx` for 404 response on not found pages
 
 ## Paths
 

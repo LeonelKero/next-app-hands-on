@@ -10,9 +10,9 @@ const UsersPage = async ({ searchParams: { sort } }: Props) => {
   return (
     <>
       <Link href={"/users/new"}>Create</Link>
-      <Suspense fallback={<p>Loading...</p>}>
+      {/* <Suspense fallback={<p>Loading...</p>}> */}
         <UsersTable sortCriteria={sort} />
-      </Suspense>
+      {/* </Suspense> */}
     </>
   );
 };
