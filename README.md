@@ -47,6 +47,7 @@ Directives should be used at the top of the file (line n°1)
 - CSS
 - DaisyUI
 - Fast sort
+- Zod
 
 ## Tips/Caution
 
