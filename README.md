@@ -15,6 +15,7 @@ After React, it's time to get our hands durty with Next Js technology.
 - Loading
 - Errors
 - Page Not found
+- API definition - CRUD
 
 ## Key files you must know
 
@@ -24,6 +25,7 @@ After React, it's time to get our hands durty with Next Js technology.
 - `not-found.tsx` for 404 response on not found pages
 - `error.tsx` for any error occuring at the module/path level
 - `global-error.tsx` for any error occuring at the application level
+- `route.tsx` for handling HTTP verbs
 
 ## Directives
 
