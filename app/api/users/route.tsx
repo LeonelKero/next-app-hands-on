@@ -19,8 +19,19 @@ const POST = async (request: NextRequest) => {
   const validation = userSchema.safeParse(body);
   if (!validation.success)
     return NextResponse.json(validation.error.errors, { status: 400 });
-  // when validation succeed, perform saving
-  const savedUser = await prisma.user.create({ data: body });
+  // when validation succeed - check if email is not taken
+  const existingUser = await prisma.user.findUnique({
+    where: { email: validation.data.email },
+  });
+  if (existingUser)
+    return NextResponse.json("Email already taken", { status: 400 });
+  // perform saving
+  const savedUser = await prisma.user.create({
+    data: {
+      name: body.name,
+      email: body.email,
+    },
+  });
   return NextResponse.json(savedUser, { status: 201 });
 };
 
