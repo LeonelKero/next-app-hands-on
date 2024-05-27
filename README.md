@@ -16,6 +16,7 @@ After React, it's time to get our hands durty with Next Js technology.
 - Errors
 - Page Not found
 - API definition - CRUD
+- Database integration
 
 ## Key files you must know
 
@@ -48,6 +49,7 @@ Directives should be used at the top of the file (line n°1)
 - DaisyUI
 - Fast sort
 - Zod
+- Prisma
 
 ## Tips/Caution
 
