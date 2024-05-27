@@ -17,6 +17,7 @@ After React, it's time to get our hands durty with Next Js technology.
 - Page Not found
 - API definition - CRUD
 - Database integration - MySQL
+- File Storage with Cloudinary
 
 ## Key files you must know
 
@@ -51,6 +52,7 @@ Directives should be used at the top of the file (line n°1)
 - Zod
 - Prisma
 - MySQL
+- Cloudinary file storage
 
 ## Tips/Caution
 
