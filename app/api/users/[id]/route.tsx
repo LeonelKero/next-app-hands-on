@@ -1,35 +1,66 @@
-import { error } from "console";
+import prisma from "@/prisma/client";
 import { NextRequest, NextResponse } from "next/server";
+import userSchema from "../schema";
 
 interface Props {
-  params: { id: number };
+  params: { id: string }; // url parameter is red as string instead of number
 }
 
 // path /api/users/[id]
-const GET = (request: NextRequest, { params: { id } }: Props) => {
-  // must get user from the database
-  if (id > 10)
-    return NextResponse.json({ error: "User not found" }, { status: 404 });
-  return NextResponse.json({ id: 1, name: "leonel ka" });
+const GET = async (
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) => {
+  const userId = Number(params.id);
+  // fetch user from the database
+  const user = await prisma.user.findFirst({
+    where: { id: parseInt(params.id) },
+  });
+  if (!user)
+    return NextResponse.json(
+      { error: `User with id ${params.id} not found` },
+      { status: 404 }
+    );
+  return NextResponse.json(user);
 };
 
 const PUT = async (request: NextRequest, { params: { id } }: Props) => {
   const body = (await request.json()) as User;
   // look for element in database
-  // proceed with element update
-  if (!body.name)
-    return NextResponse.json({ error: "Bad request" }, { status: 400 });
-  return NextResponse.json({ id: 7, name: body.name }, { status: 200 });
+  const user = await prisma.user.findUnique({ where: { id: parseInt(id) } });
+  if (!user)
+    return NextResponse.json(
+      { error: "Bad request, no user found" },
+      { status: 400 }
+    );
+  // validate incoming data
+  const validation = userSchema.safeParse(body);
+  if (!validation.success)
+    return NextResponse.json(validation.error.errors, { status: 400 });
+  // create new user
+  const newUser = { ...user, ...body };
+  // proceed with update
+  const updatedUser = await prisma.user.update({
+    data: newUser,
+    where: { id: parseInt(id) },
+  });
+  return NextResponse.json(updatedUser, { status: 200 });
 };
 
-const DELETE = (request: NextRequest, { params: { id } }: Props) => {
+const DELETE = async (request: NextRequest, { params: { id } }: Props) => {
   // validate and proceed with deletion
-  if (id > 10)
+  const user = await prisma.user.findUnique({ where: { id: parseInt(id) } });
+  if (!user)
     return NextResponse.json(
       { error: `User with Id ${id} not found` },
       { status: 404 }
     );
-  return NextResponse.json(`User ${id} deleted successfully`, { status: 200 });
+  // if user exist in database
+  const deletedUser = await prisma.user.delete({ where: { id: parseInt(id) } });
+  return NextResponse.json(
+    `User with Id ${deletedUser.id} removed successfully`,
+    { status: 200 }
+  );
 };
 
-export { GET, PUT, DELETE };
+export { DELETE, GET, PUT };
