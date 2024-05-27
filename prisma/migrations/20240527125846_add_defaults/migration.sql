@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE `Product` MODIFY `price` DECIMAL(65, 30) NOT NULL DEFAULT 5,
+    MODIFY `quantity` INTEGER NOT NULL DEFAULT 0;

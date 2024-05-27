@@ -1,23 +1,23 @@
+import prisma from "@/prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 import productSchema from "../schema";
 
 interface Props {
-  params: { id: number };
+  params: { id: string };
 }
 
-const GET = (request: NextRequest, { params: { id } }: Props) => {
+const GET = async (request: NextRequest, { params: { id } }: Props) => {
   // look for product in database
-  // let simulated product not found if id > 10
-  if (id > 20)
+  const optionalProduct = await prisma.product.findUnique({
+    where: { id: parseInt(id) },
+  });
+  if (!optionalProduct)
     return NextResponse.json(
       { error: `Product with id ${id} not found` },
       { status: 404 }
     );
   // if product is in database
-  return NextResponse.json(
-    { id, name: "Macbook Pro Ultra", price: 67_000 },
-    { status: 200 }
-  );
+  return NextResponse.json(optionalProduct, { status: 200 });
 };
 
 const PUT = async (request: NextRequest, { params: { id } }: Props) => {
@@ -25,19 +25,40 @@ const PUT = async (request: NextRequest, { params: { id } }: Props) => {
   const validation = productSchema.safeParse(body);
   if (!validation.success)
     return NextResponse.json(validation.error.errors, { status: 400 });
-  const { name, price } = { ...validation.data };
-  return NextResponse.json({ id, name, price }, { status: 200 });
+  // in succes validation - fetch product
+  const optionalProduct = await prisma.product.findUnique({
+    where: { id: parseInt(id) },
+  });
+  if (!optionalProduct)
+    return NextResponse.json(`Product with Id ${id} not found`, {
+      status: 404,
+    });
+  // when the product exists
+  const newProduct = { ...optionalProduct, ...validation.data }; // Todo 1: find a way to exclude 'id' field
+  const updatedProduct = await prisma.product.update({
+    data: newProduct,
+    where: { id: parseInt(id) },
+  });
+  return NextResponse.json(updatedProduct, { status: 200 });
 };
 
-const DELETE = (request: NextRequest, { params: { id } }: Props) => {
+const DELETE = async (request: NextRequest, { params: { id } }: Props) => {
   // look for product in database
-  // let simulated product not found if id > 10
-  if (id > 20)
+  const optionalProduct = await prisma.product.findUnique({
+    where: { id: parseInt(id) },
+  });
+  if (!optionalProduct)
     return NextResponse.json(
       { error: `Product with id ${id} not found` },
       { status: 404 }
     );
-  // if product is deleted from the database - proceed to deletion
-  return NextResponse.json(`Product with Id ${id} deleted`, { status: 200 });
+  const deletedProduct = await prisma.product.delete({
+    where: { id: parseInt(id) },
+  });
+  // if product is present into the database - proceed to deletion
+  return NextResponse.json(`Product with Id ${deletedProduct.id} deleted`, {
+    status: 200,
+  });
 };
-export { GET, PUT, DELETE };
+export { DELETE, GET, PUT };
+
