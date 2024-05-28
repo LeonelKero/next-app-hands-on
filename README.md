@@ -18,6 +18,7 @@ After React, it's time to get our hands durty with Next Js technology.
 - API definition - CRUD
 - Database integration - MySQL
 - File Storage with Cloudinary
+- Authentication
 
 ## Key files you must know
 
@@ -53,6 +54,7 @@ Directives should be used at the top of the file (line n°1)
 - Prisma
 - MySQL
 - Cloudinary file storage
+- NextAuth
 
 ## Tips/Caution
 
